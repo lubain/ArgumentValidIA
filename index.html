@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .calculatrice{
+            position: absolute;
+            top: 1%;
+            left: 50%;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <form action="" method="get" id="form1">
+                    <input type="number" min="2" id="hypothesenumber" placeholder="nombre de l'hypothese">
+                    <input type="submit" value="Creer">
+                </form>
+                <form action="" method="get" id="form2">
+                    <table id="hypotheseList"></table>
+                </form>
+                <div id="cn"></div>
+            </td>
+            <td>
+                <table class="calculatrice" id="calc">
+                    <tr>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="CE"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="&rarr;"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="!"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="^"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="p"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="q"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="r"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="v"/>
+                        </td>
+                    </tr>
+                                <tr>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="s"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="t"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="u"/>
+                        </td>
+                        <td class="calc_td_btn">
+                                <input type="button" class="calc_btn" value="next"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <script>
+        const form1 = document.getElementById("form1")
+        const form2 = document.getElementById("form2")
+        const hypothesenumber = document.getElementById("hypothesenumber")
+        const hypotheseList = document.getElementById('hypotheseList');
+        const cn = document.getElementById('cn');
+        const BtnConclusion = document.createElement('input')
+        let n = hypothesenumber.value
+        BtnConclusion.type = "submit"
+        BtnConclusion.value = "conclusion"
+        form1.addEventListener("submit", (e)=>{
+            e.preventDefault()
+            if (hypothesenumber.value > 0) {
+                for (let i = 0; i < n; i++) {
+                    const child = document.querySelector("#hypotheseList tr")
+                    hypotheseList.removeChild(child);
+                }
+            }
+            for (let i = 0; i < hypothesenumber.value; i++) {
+                const hypotheseItem = document.createElement('tr');
+                const inputText = document.createElement('input')
+                const label = document.createElement('label')
+                inputText.classList.add("tr"+(i+1));
+                inputText.required = true;
+                label.textContent = "h"+(i+1)
+                hypotheseItem.appendChild(label);
+                label.appendChild(inputText);
+                hypotheseList.appendChild(hypotheseItem);
+            }
+            form2.appendChild(BtnConclusion)
+            n = hypothesenumber.value
+            hypothesenumber.value = ""
+            if (cn.childElementCount > 0) {
+                for (let i = 0; i < n; i++) {
+                    const child = cn.children[i]
+                    cn.removeChild(cn.children[0]);
+                }
+            }
+        })
+        form2.addEventListener("submit", (e)=>{
+            e.preventDefault()
+            if (cn.childElementCount > 0) {
+                for (let i = 0; i < n; i++) {
+                    const child = cn.children[i]
+                    cn.removeChild(cn.children[0]);
+                }
+            }
+        })
+    </script>
+    <script src="app1.js"></script>
+</body>
+</html>
